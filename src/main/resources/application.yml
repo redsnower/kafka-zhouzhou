@@ -1,0 +1,21 @@
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 3
+      acks: 1
+
+    listener:
+      ack-mode: manual
+
+    consumer:
+      group-id: pay
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      #      auto-commit-interval: 10
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#
