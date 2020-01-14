@@ -8,6 +8,8 @@ import com.zhouzhou.kafka.kafka.publish.IKafkaPublish;
 import com.zhouzhou.kafka.kafka.util.KafkaUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("测试")
 @RestController
+@Slf4j
 public class TestController {
 
     @Autowired
     private IKafkaPublish kafkaPublish;
 
+    
+    
+    @ApiOperation(value = "=发布通用消息", notes = "发布通用消息")
+    @PostMapping("/log4j")
+    public Response<Boolean> log4j() {
+    	 log.info("输出信息……");
+         log.trace("随意打印……");
+         log.debug("调试信息……");
+         log.warn("警告信息……");
+         try {
+             throw new Exception("错误消息啊");
+         } catch (Exception e) {
+         	log.error("处理业务逻辑的时候发生一个错误……", e);
+         }
+		return null;
+    }
     @ApiOperation(value = "=发布通用消息", notes = "发布通用消息")
     @PostMapping("/demo/publishMessage")
     public Response<Boolean> publishMessage(Integer counts) {
